@@ -30,8 +30,7 @@ static const char *colors[][3]      = {
 };
 
 /* tagging */
-static const char *tags[] = {"1", "2", "3", "4", "5", "6", "7", "8"  };
-
+static const char *tags[] = {"", "", "", "", "", "", "", "" };
 static const Rule rules[] = {
 	/* xprop(1):
 	 *	WM_CLASS(STRING) = instance, class
@@ -41,11 +40,13 @@ static const Rule rules[] = {
 	{ "Gimp",		     	NULL,       NULL,      1<<4,       0,           -1 },
 	{ "Inkscape",		    NULL,       NULL,      1<<4,       0,           -1 },
 	{ "Firefox",			NULL,       NULL,      3,          0,           -1 },
-	{ "Code",				NULL,       NULL,      1<<2,       0,           -1 },
+	{ "TelegramDesktop",    NULL,       NULL,      1<<2,       0,           -1 },
 	{ "qBittorrent",        NULL,       NULL,      1<<3,       0,           -1 },
 	{ "Spotify",		    NULL,       NULL,      1<<5,       0,           -1 },
 	{ "zoom",				NULL,       NULL,      1<<6,       0,           -1 },
-	{ "figma-linux",	 	NULL,       NULL,      1<<4,       0,           -1 }
+	{ "figma-linux",	 	NULL,       NULL,      1<<4,       0,           -1 },
+	{ "discord",	 	    NULL,       NULL,      1<<7,       0,           -1 },
+	{ "VSCodium",	 	    NULL,       NULL,      1<<2,       0,           -1 },
 };
 
 /* layout(s) */
@@ -64,9 +65,9 @@ static const Layout layouts[] = {
 #define MODKEY Mod4Mask
 #define TAGKEYS(KEY,TAG) \
 	{ MODKEY,                       KEY,      view,           {.ui = 1 << TAG} }, \
-	{ MODKEY|ControlMask,           KEY,      toggleview,     {.ui = 1 << TAG} }, \
+	{ Mod1Mask,                     KEY,      toggleview,     {.ui = 1 << TAG} }, \
 	{ MODKEY|ShiftMask,             KEY,      tag,            {.ui = 1 << TAG} }, \
-	{ Mod1Mask,						KEY,      toggletag,      {.ui = 1 << TAG} },
+	{ MODKEY|ControlMask,		    KEY,      toggletag,      {.ui = 1 << TAG} },
 
 /* helper for spawning shell commands in the pre dwm-5.0 fashion */
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
@@ -78,12 +79,7 @@ static const char *termcmd[]  = { "/usr/local/bin/st", NULL };
 static const char *web[] = { "/usr/bin/brave", NULL };
 static const char *torrent[] = { "/usr/bin/qbittorrent", NULL };
 static const char *fileManager[] = { "/usr/bin/nautilus", NULL };
-static const char *ferdi[] = { "/usr/bin/ferdi", NULL };
-/* volume commands */
-/*static const char *mutecmd[] = { "pulsemute", NULL };  The script is in the scripts repo and needs the scripts folder must be added to the path*/
-/* brightness commands */
-//static const char *brupcmd[] = { "sudo", "xbacklight", "-inc", "10", NULL };
-//static const char *brdowncmd[] = { "sudo", "xbacklight", "-dec", "10", NULL };
+static const char *vscodium[] = { "/usr/bin/vscodium", NULL };
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
@@ -92,7 +88,7 @@ static Key keys[] = {
 	{ MODKEY,						XK_q,	   spawn,          {.v = torrent} },
 	{ MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY,                       XK_n,      spawn,		   {.v = fileManager } },
-	{ MODKEY,                       XK_r,      spawn,		   {.v = ferdi } },
+	{ MODKEY,                       XK_bracketright,     spawn, {.v = vscodium } },
 	{ Mod1Mask,                     XK_F4,     spawn,          SHCMD("sd") }, //add to path
 	{ 0,                            XK_Print,  spawn,          SHCMD("screenshot") }, 
 	{ 0,                            XK_F8,     spawn,          SHCMD("feh --bg-scale --randomize /D/Downloads/*.jpg") }, 
@@ -113,11 +109,9 @@ static Key keys[] = {
 	{ MODKEY,                       XK_F10,    spawn,          SHCMD("xbacklight -inc 10 ; pkill -RTMIN+20 dwmblocks")},
 	{ MODKEY,                       XK_F9,     spawn,          SHCMD("xbacklight -dec 10 ; pkill -RTMIN+20 dwmblocks")},
 	{ MODKEY,                       XK_bracketleft,     spawn,          SHCMD("st -e calcurse")},
-	{ MODKEY,                       XK_bracketright,     spawn,          SHCMD("st -e nvim")},
 	{ MODKEY,                       XK_o,      spawn,          SHCMD("st -e ranger /random")},
 	{ MODKEY,                       XK_e,      spawn,          SHCMD("getEmoji")},
 	{ MODKEY|ControlMask,           XK_w,      spawn,          SHCMD("ow awiki")},
-	{ MODKEY,                       XK_w,      spawn,          SHCMD("sxiv /D/Downloads/*.jpg /D/Downloads/*.png")},
 	{ MODKEY|ShiftMask,             XK_w,      spawn,          SHCMD("ow aur")},
 	{ MODKEY|ShiftMask,             XK_o,      spawn,          SHCMD("scriptMaker")},
 	{ MODKEY,                       XK_i,      spawn,          SHCMD("st -e ranger /D/Downloads")},
@@ -137,10 +131,11 @@ static Key keys[] = {
 	{ MODKEY,						XK_m,	   zoom,           {0} },
 	{ MODKEY,                       XK_Tab,    view,           {0} },
 	{ MODKEY|ShiftMask,             XK_c,      killclient,     {0} },
+	{ MODKEY,                       XK_c,      killclient,     {0} },
 	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
 	{ MODKEY|ShiftMask,             XK_m,      setlayout,      {.v = &layouts[2]} },
-	{ MODKEY,                       XK_space,  setlayout,      {0} },
-	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
+	/* { MODKEY,                       XK_space,  incnmaster,     {.i = +1 } }, */
+	/* { MODKEY|ShiftMask,             XK_space,  togglefloating, {0} }, */
 	{ MODKEY,                       XK_f,      togglefullscr,  {0} },
 	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
 	{ MODKEY|ShiftMask,             XK_0,      tag,            {.ui = ~0 } },
