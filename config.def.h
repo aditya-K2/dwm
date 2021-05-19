@@ -47,6 +47,7 @@ static const Rule rules[] = {
 	{ "figma-linux",	 	NULL,       NULL,      1<<4,       0,           -1 },
 	{ "discord",	 	    NULL,       NULL,      1<<7,       0,           -1 },
 	{ "VSCodium",	 	    NULL,       NULL,      1<<2,       0,           -1 },
+	{ "Steam",	 	        NULL,       NULL,      1<<3,       0,           -1 },
 };
 
 /* layout(s) */
