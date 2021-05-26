@@ -4,7 +4,7 @@
 
 /* appearance */
 static const unsigned int borderpx  = 2;        /* border pixel of windows */
-static const unsigned int gappx     = 3;        /* gaps between windows */
+static const unsigned int gappx     = 2;        /* gaps between windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
@@ -48,6 +48,7 @@ static const Rule rules[] = {
 	{ "discord",	 	    NULL,       NULL,      1<<7,       0,           -1 },
 	{ "VSCodium",	 	    NULL,       NULL,      1<<2,       0,           -1 },
 	{ "Steam",	 	        NULL,       NULL,      1<<3,       0,           -1 },
+	{ "Tk",	 	            NULL,       NULL,      0,          1,           -1 },
 };
 
 /* layout(s) */
@@ -76,7 +77,7 @@ static const Layout layouts[] = {
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-p", ">", "-m", dmenumon, "-fn", dmenufont, "-nb", col_statusbarBG, "-nf", col_dmenuFG, "-sb", col_statusbarMiddle, "-sf", col_statusbarFG, "-i" , NULL };
-static const char *termcmd[]  = { "/usr/local/bin/st", NULL };
+static const char *termcmd[]  = { "/usr/bin/alacritty", NULL };
 static const char *web[] = { "/usr/bin/brave", NULL };
 static const char *torrent[] = { "/usr/bin/qbittorrent", NULL };
 static const char *fileManager[] = { "/usr/bin/nautilus", NULL };
@@ -109,16 +110,17 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_F6,  spawn, SHCMD("sxiv /D/Downloads/wallpapers/*.jpg")}, // map keys again  
 	{ MODKEY,                       XK_F10,    spawn,          SHCMD("xbacklight -inc 10 ; pkill -RTMIN+20 dwmblocks")},
 	{ MODKEY,                       XK_F9,     spawn,          SHCMD("xbacklight -dec 10 ; pkill -RTMIN+20 dwmblocks")},
-	{ MODKEY,                       XK_bracketleft,     spawn,          SHCMD("st -e calcurse")},
-	{ MODKEY,                       XK_o,      spawn,          SHCMD("st -e ranger /random")},
+	{ MODKEY,                       XK_bracketleft,     spawn,          SHCMD("/H/code/cphPython/codeRunner.py & printf '1' > /home/aditya/suckless/scripts/cphState && notify-send -t 2000 'CPH Started 🟢'; pkill -RTMIN+14 dwmblocks")},
+	{ MODKEY|ShiftMask,                       XK_bracketleft,     spawn,          SHCMD("killall codeRunner.py 2>/dev/null && notify-send -t 2000 'CPH Killed 🔴' && pkill -RTMIN+14 dwmblocks")},
+	{ MODKEY,                       XK_o,      spawn,          SHCMD("alacritty -e ranger /random")},
 	{ MODKEY,                       XK_e,      spawn,          SHCMD("getEmoji")},
 	{ MODKEY|ControlMask,           XK_w,      spawn,          SHCMD("ow awiki")},
 	{ MODKEY|ShiftMask,             XK_w,      spawn,          SHCMD("ow aur")},
 	{ MODKEY|ShiftMask,             XK_o,      spawn,          SHCMD("scriptMaker")},
-	{ MODKEY,                       XK_i,      spawn,          SHCMD("st -e ranger /D/Downloads")},
-	{ MODKEY|ShiftMask,             XK_i,      spawn,          SHCMD("st -e ranger /F/")},
-	{ MODKEY,						XK_s,      spawn,          SHCMD("st -e ranger /home/aditya/Pictures/Screenshots")},
-	{ MODKEY,                       XK_y,      spawn,          SHCMD("st -e ncmpcpp")},
+	{ MODKEY,                       XK_i,      spawn,          SHCMD("alacritty -e ranger /D/Downloads")},
+	{ MODKEY|ShiftMask,             XK_i,      spawn,          SHCMD("alacritty -e ranger /F/")},
+	{ MODKEY,						XK_s,      spawn,          SHCMD("alacritty -e ranger /home/aditya/Pictures/Screenshots")},
+	{ MODKEY,                       XK_y,      spawn,          SHCMD("alacritty -e ncmpcpp")},
 	{ MODKEY,                       XK_g,      spawn,          SHCMD("brave github.com")},
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY|ShiftMask,             XK_j,      rotatestack,    {.i = +1 } },
