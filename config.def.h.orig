@@ -82,8 +82,6 @@ static const char *web[] = { "/usr/bin/brave", NULL };
 static const char *torrent[] = { "/usr/bin/qbittorrent", NULL };
 static const char *fileManager[] = { "/usr/bin/nautilus", NULL };
 static const char *vscodium[] = { "/usr/bin/vscodium", NULL };
-static const char scratchpadname[] = "scratchpad";
-static const char *scratchpadcmd[] = { "alacritty", "-t", scratchpadname, NULL };
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
@@ -93,9 +91,7 @@ static Key keys[] = {
 	{ MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY,                       XK_n,      spawn,		   {.v = fileManager } },
 	{ MODKEY,                       XK_bracketright,     spawn, {.v = vscodium } },
-	{ MODKEY,                       XK_space,  togglescratch,  {.v = scratchpadcmd } },
 	{ Mod1Mask,                     XK_F4,     spawn,          SHCMD("sd") }, //add to path
-	{ MODKEY,                       XK_y,      spawn,          SHCMD("alacritty -e ncmpcpp")},
 	{ 0,                            XK_Print,  spawn,          SHCMD("screenshot") }, 
 	{ 0,                            XK_F8,     spawn,          SHCMD("feh --bg-scale --randomize /D/Downloads/*.jpg") }, 
 	{ ControlMask,                  XK_Print,  spawn,          SHCMD("directoryName") }, 
@@ -114,13 +110,17 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_F6,  spawn, SHCMD("sxiv /D/Downloads/wallpapers/*.jpg")}, // map keys again  
 	{ MODKEY,                       XK_F10,    spawn,          SHCMD("xbacklight -inc 10 ; pkill -RTMIN+20 dwmblocks")},
 	{ MODKEY,                       XK_F9,     spawn,          SHCMD("xbacklight -dec 10 ; pkill -RTMIN+20 dwmblocks")},
+	{ MODKEY,                       XK_bracketleft,     spawn,          SHCMD("/H/code/cphPython/codeRunner.py & printf '1' > /home/aditya/suckless/scripts/cphState && notify-send -t 2000 'CPH Started 🟢'; pkill -RTMIN+14 dwmblocks")},
+	{ MODKEY|ShiftMask,                       XK_bracketleft,     spawn,          SHCMD("killall codeRunner.py 2>/dev/null && notify-send -t 2000 'CPH Killed 🔴' && pkill -RTMIN+14 dwmblocks")},
 	{ MODKEY,                       XK_o,      spawn,          SHCMD("alacritty -e ranger /random")},
 	{ MODKEY,                       XK_e,      spawn,          SHCMD("getEmoji")},
-	{ MODKEY,                       XK_w,      spawn,          SHCMD("alacritty -e neomutt")},
+	{ MODKEY|ControlMask,           XK_w,      spawn,          SHCMD("ow awiki")},
+	{ MODKEY|ShiftMask,             XK_w,      spawn,          SHCMD("ow aur")},
 	{ MODKEY|ShiftMask,             XK_o,      spawn,          SHCMD("scriptMaker")},
 	{ MODKEY,                       XK_i,      spawn,          SHCMD("alacritty -e ranger /D/Downloads")},
 	{ MODKEY|ShiftMask,             XK_i,      spawn,          SHCMD("alacritty -e ranger /F/")},
 	{ MODKEY,						XK_s,      spawn,          SHCMD("alacritty -e ranger /home/aditya/Pictures/Screenshots")},
+	{ MODKEY,                       XK_y,      spawn,          SHCMD("alacritty -e ncmpcpp")},
 	{ MODKEY,                       XK_g,      spawn,          SHCMD("brave github.com")},
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY|ShiftMask,             XK_j,      rotatestack,    {.i = +1 } },
