@@ -83,7 +83,9 @@ static const char *torrent[] = { "/usr/bin/qbittorrent", NULL };
 static const char *fileManager[] = { "/usr/bin/nautilus", NULL };
 static const char *vscodium[] = { "/usr/bin/vscodium", NULL };
 static const char scratchpadname[] = "scratchpad";
+static const char ncmpcppname[] = "ncmpcpp";
 static const char *scratchpadcmd[] = { "alacritty", "-t", scratchpadname, NULL };
+static const char *ncmpcppcmd[] = { "alacritty", "-t", ncmpcppname, "-e", ncmpcppname,  NULL };
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
@@ -94,8 +96,9 @@ static Key keys[] = {
 	{ MODKEY,                       XK_n,      spawn,		   {.v = fileManager } },
 	{ MODKEY,                       XK_bracketright,     spawn, {.v = vscodium } },
 	{ MODKEY,                       XK_space,  togglescratch,  {.v = scratchpadcmd } },
+	{ MODKEY,                       XK_y,  togglencmpcpp,  {.v = ncmpcppcmd } },
 	{ Mod1Mask,                     XK_F4,     spawn,          SHCMD("sd") }, //add to path
-	{ MODKEY,                       XK_y,      spawn,          SHCMD("alacritty -e ncmpcpp")},
+	/* { MODKEY,                       XK_y,      spawn,          SHCMD("alacritty -e ncmpcpp")}, */
 	{ 0,                            XK_Print,  spawn,          SHCMD("screenshot") }, 
 	{ 0,                            XK_F8,     spawn,          SHCMD("feh --bg-scale --randomize /D/Downloads/*.jpg") }, 
 	{ ControlMask,                  XK_Print,  spawn,          SHCMD("directoryName") }, 
