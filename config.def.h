@@ -6,17 +6,18 @@
 static const unsigned int borderpx  = 2;        /* border pixel of windows */
 static const unsigned int gappx     = 2;        /* gaps between windows */
 static const unsigned int snap      = 32;       /* snap pixel */
+static const unsigned int systraypinning = 0;   /* 0: sloppy systray follows selected monitor, >0: pin systray to monitor X */
+static const unsigned int systrayonleft = 0;   	/* 0: systray in the right corner, >0: systray on left of status text */
+static const unsigned int systrayspacing = 2;   /* systray spacing */
+static const int systraypinningfailfirst = 1;   /* 1: if pinning fails, display systray on the first monitor, False: display systray on the last monitor*/
+static const int showsystray        = 1;     /* 0 means no systray */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
 static const int vertpad            = 0;       /* vertical padding of bar */
 static const int sidepad            = 0;      /* horizontal padding of bar */
 static const char *fonts[]          = { "SourceCodeProMedium:size=9" , "NotoColorEmoji:size=10"};
 static const char dmenufont[]       = "SourceCodeProMedium:size=10";
-static const char col_gray1[]       = "#0f0f0f"; 
-static const char col_gray2[]       = "#000000";
 static const char col_gray3[]       = "#bbbbbb";
-static const char col_gray4[]       = "#eeeeee";
-static const char col_cyan[]        = "#93c416";
 static const char col_statusbarBG[] = "#000f1a";
 static const char col_statusbarMiddle[] = "#212121";
 static const char col_selectedBorder[] = "#212121";
@@ -117,13 +118,13 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_F6,  spawn, SHCMD("sxiv /D/Downloads/wallpapers/*.jpg")}, // map keys again  
 	{ MODKEY,                       XK_F10,    spawn,          SHCMD("xbacklight -inc 10 ; pkill -RTMIN+20 dwmblocks")},
 	{ MODKEY,                       XK_F9,     spawn,          SHCMD("xbacklight -dec 10 ; pkill -RTMIN+20 dwmblocks")},
-	{ MODKEY,                       XK_o,      spawn,          SHCMD("alacritty -e ranger /random")},
+	{ MODKEY,                       XK_o,      spawn,          SHCMD("alacritty -e lf /random")},
 	{ MODKEY,                       XK_e,      spawn,          SHCMD("getEmoji")},
 	{ MODKEY,                       XK_w,      spawn,          SHCMD("alacritty -e neomutt")},
 	{ MODKEY|ShiftMask,             XK_o,      spawn,          SHCMD("scriptMaker")},
-	{ MODKEY,                       XK_i,      spawn,          SHCMD("alacritty -e ranger /D/Downloads")},
-	{ MODKEY|ShiftMask,             XK_i,      spawn,          SHCMD("alacritty -e ranger /F/")},
-	{ MODKEY,						XK_s,      spawn,          SHCMD("alacritty -e ranger /home/aditya/Pictures/Screenshots")},
+	{ MODKEY,                       XK_i,      spawn,          SHCMD("alacritty -e lf /D/Downloads")},
+	{ MODKEY|ShiftMask,             XK_i,      spawn,          SHCMD("alacritty -e lf /F/")},
+	{ MODKEY,						XK_s,      spawn,          SHCMD("alacritty -e lf /home/aditya/Pictures/Screenshots")},
 	{ MODKEY,                       XK_g,      spawn,          SHCMD("brave github.com")},
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY|ShiftMask,             XK_j,      rotatestack,    {.i = +1 } },
@@ -180,4 +181,3 @@ static Button buttons[] = {
 	{ ClkTagBar,            MODKEY,         Button1,        tag,            {0} },
 	{ ClkTagBar,            MODKEY,         Button3,        toggletag,      {0} },
 };
-
