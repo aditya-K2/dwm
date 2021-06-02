@@ -6,9 +6,9 @@
 static const unsigned int borderpx  = 2;        /* border pixel of windows */
 static const unsigned int gappx     = 2;        /* gaps between windows */
 static const unsigned int snap      = 32;       /* snap pixel */
-static const unsigned int systraypinning = 0;   /* 0: sloppy systray follows selected monitor, >0: pin systray to monitor X */
+static const unsigned int systraypinning = 1;   /* 0: sloppy systray follows selected monitor, >0: pin systray to monitor X */
 static const unsigned int systrayonleft = 0;   	/* 0: systray in the right corner, >0: systray on left of status text */
-static const unsigned int systrayspacing = 2;   /* systray spacing */
+static const unsigned int systrayspacing = 4;   /* systray spacing */
 static const int systraypinningfailfirst = 1;   /* 1: if pinning fails, display systray on the first monitor, False: display systray on the last monitor*/
 static const int showsystray        = 1;     /* 0 means no systray */
 static const int showbar            = 1;        /* 0 means no bar */
@@ -124,8 +124,8 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_o,      spawn,          SHCMD("scriptMaker")},
 	{ MODKEY,                       XK_i,      spawn,          SHCMD("alacritty -e lf /D/Downloads")},
 	{ MODKEY|ShiftMask,             XK_i,      spawn,          SHCMD("alacritty -e lf /F/")},
-	{ MODKEY,						XK_s,      spawn,          SHCMD("alacritty -e lf /home/aditya/Pictures/Screenshots")},
-	{ MODKEY,                       XK_g,      spawn,          SHCMD("brave github.com")},
+	{ MODKEY,						XK_s,      spawn,          SHCMD("alacritty -e ranger /home/aditya/Pictures/Screenshots")},
+	{ MODKEY,                       XK_g,      spawn,          SHCMD("searchEngine")},
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY|ShiftMask,             XK_j,      rotatestack,    {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_k,      rotatestack,    {.i = -1 } },
