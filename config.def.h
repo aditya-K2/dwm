@@ -125,7 +125,7 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_i,      spawn,          SHCMD("alacritty -e lf /F/")},
 	{ MODKEY,						XK_s,      spawn,          SHCMD("alacritty -e ranger /home/aditya/Pictures/Screenshots")},
 	{ MODKEY,                       XK_g,      spawn,          SHCMD("searchEngine")},
-	{ MODKEY,                       XK_bracketright,      spawn,          SHCMD("cph")},
+	{ MODKEY,                       XK_F2,      spawn,          SHCMD("cph")},
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY|ShiftMask,             XK_j,      rotatestack,    {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_k,      rotatestack,    {.i = -1 } },
