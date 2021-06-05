@@ -1,7 +1,8 @@
 /* See LICENSE file for copyright and license details. */
 
 #include <X11/XF86keysym.h>
-
+#include "layouts.c"
+#include "fibonacci.c"
 /* appearance */
 static const unsigned int borderpx  = 2;        /* border pixel of windows */
 static const unsigned int gappx     = 2;        /* gaps between windows */
@@ -62,6 +63,9 @@ static const Layout layouts[] = {
 	{ "|  ",      tile },    /* first entry is default */
 	{ "|  ",      NULL },    /* no layout function means floating behavior */
 	{ "[M]",      monocle },
+	{ "HHH",      grid },
+ 	{ "[@]",      spiral },
+ 	{ "[\\]",      dwindle },
 };
 
 /* key definitions */
@@ -124,7 +128,9 @@ static Key keys[] = {
 	{ MODKEY,                       XK_i,      spawn,          SHCMD("alacritty -e lf /D/Downloads")},
 	{ MODKEY|ShiftMask,             XK_i,      spawn,          SHCMD("alacritty -e lf /F/")},
 	{ MODKEY,						XK_s,      spawn,          SHCMD("alacritty -e ranger /home/aditya/Pictures/Screenshots")},
-	{ MODKEY,                       XK_g,      spawn,          SHCMD("searchEngine")},
+	{ MODKEY,                       XK_g,      setlayout,      {.v = &layouts[3]} },
+	{ MODKEY,                       XK_r,      setlayout,      {.v = &layouts[4]} },
+	{ MODKEY|ShiftMask,             XK_r,      setlayout,      {.v = &layouts[5]} },
 	{ MODKEY,                       XK_F2,      spawn,          SHCMD("cph")},
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY|ShiftMask,             XK_j,      rotatestack,    {.i = +1 } },
