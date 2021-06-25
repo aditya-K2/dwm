@@ -68,7 +68,8 @@ static const Layout layouts[] = {
 	{ "[M]",      monocle },
 	{ "HHH",      grid },
  	{ "[@]",      spiral },
- 	{ "[\\]",      dwindle }
+ 	{ "[\\]",      dwindle },
+	{ "TTT",      bstack },
 };
 
 /* key definitions */
@@ -147,7 +148,7 @@ static Key keys[] = {
 	{ MODKEY,                       XK_Tab,    view,           {0} },
 	{ MODKEY|ShiftMask,             XK_c,      killclient,     {0} },
 	{ MODKEY,                       XK_c,      killclient,     {0} },
-	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
+	{ MODKEY|ShiftMask,             XK_t,      setlayout,      {.v = &layouts[0]} },
 	{ MODKEY|ShiftMask,             XK_m,      setlayout,      {.v = &layouts[2]} },
 	{ MODKEY,                       XK_f,      togglefullscr,  {0} },
 	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
@@ -159,6 +160,7 @@ static Key keys[] = {
 	{ MODKEY,                       XK_minus,  setgaps,        {.i = -1 } },
 	{ MODKEY,                       XK_equal,  setgaps,        {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_equal,  setgaps,        {.i = 0  } },
+	{ MODKEY|ShiftMask,             XK_u,      setlayout,      {.v = &layouts[6]} },
 	{ MODKEY,                       XK_s,      show,           {0} },
 	{ MODKEY,                       XK_t,      hide,           {0} },
 	TAGKEYS(                        XK_1,                      0)
