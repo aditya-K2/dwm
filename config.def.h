@@ -86,15 +86,15 @@ static const Layout layouts[] = {
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-p", ">", "-m", dmenumon, "-fn", dmenufont, "-nb", col_statusbarBG, "-nf", col_dmenuFG, "-sb", col_statusbarMiddle, "-sf", col_statusbarFG, "-i" , NULL };
-static const char *termcmd[]  = { "/usr/bin/alacritty", NULL };
+static const char *termcmd[]  = { "/usr/local/bin/st", NULL };
 static const char *web[] = { "/usr/bin/brave", NULL };
 static const char *torrent[] = { "/usr/bin/qbittorrent", NULL };
 static const char *fileManager[] = { "/usr/bin/nautilus", NULL };
 /* static const char *vscodium[] = { "/usr/bin/vscodium", NULL }; */
 static const char scratchpadname[] = "scratchpad";
 static const char ncmpcppname[] = "ncmpcpp";
-static const char *scratchpadcmd[] = { "alacritty", "-t", scratchpadname, NULL };
-static const char *ncmpcppcmd[] = { "alacritty", "-t", ncmpcppname, "-e", ncmpcppname,  NULL };
+static const char *scratchpadcmd[] = { "st", "-t", scratchpadname, "-g", "120x34", NULL };
+static const char *ncmpcppcmd[] = { "st", "-t", ncmpcppname , "-g", "120x34", "-e", "ncmpcpp", NULL };
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
@@ -125,14 +125,14 @@ static Key keys[] = {
 	{ MODKEY,                       XK_F10,    spawn,          SHCMD("xbacklight -inc 10 ; pkill -RTMIN+20 dwmblocks")},
 	{ MODKEY,                       XK_F9,     spawn,          SHCMD("xbacklight -dec 10 ; pkill -RTMIN+20 dwmblocks")},
 	{ MODKEY,                       XK_e,      spawn,          SHCMD("getEmoji")},
-	{ MODKEY,                       XK_w,      spawn,          SHCMD("alacritty -e neomutt")},
+	{ MODKEY,                       XK_w,      spawn,          SHCMD("st -e neomutt")},
 	{ MODKEY|ShiftMask,             XK_o,      spawn,          SHCMD("scriptMaker")},
 	{ MODKEY,                       XK_g,      setlayout,      {.v = &layouts[3]} },
 	{ MODKEY,                       XK_r,      setlayout,      {.v = &layouts[4]} },
 	{ MODKEY|ShiftMask,             XK_r,      setlayout,      {.v = &layouts[5]} },
 	{ MODKEY,                       XK_F2,      spawn,          SHCMD("cph")},
 	{ MODKEY,                       XK_z,      spawn,          SHCMD("unzipFiles")},
-	{ MODKEY,                       XK_bracketright,      spawn,          SHCMD("alacritty -e fs")},
+	{ MODKEY,                       XK_bracketright,      spawn,          SHCMD("st -e fs")},
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY|ShiftMask,             XK_j,      rotatestack,    {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_k,      rotatestack,    {.i = -1 } },
