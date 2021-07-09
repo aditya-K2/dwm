@@ -102,7 +102,6 @@ static Key keys[] = {
 	{ MODKEY,						XK_u,	   spawn,          {.v = web} },
 	{ MODKEY,						XK_q,	   spawn,          {.v = torrent} },
 	{ MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
-	{ MODKEY|ShiftMask,             XK_f,      spawn,          SHCMD("openFigma") },
 	{ MODKEY,                       XK_n,      spawn,		   {.v = fileManager } },
 	{ MODKEY,                       XK_space,  togglescratch,  {.v = scratchpadcmd } },
 	{ MODKEY,                       XK_y,  togglencmpcpp,  {.v = ncmpcppcmd } },
@@ -110,13 +109,13 @@ static Key keys[] = {
 	{ 0,                            XK_Print,  spawn,          SHCMD("screenshot") }, 
 	{ 0,                            XK_F8,     spawn,          SHCMD("feh --bg-scale --randomize /D/Downloads/*.jpg") }, 
 	{ ControlMask,                  XK_Print,  spawn,          SHCMD("directoryName") }, 
-	{ MODKEY|ShiftMask,             XK_y,      spawn,          SHCMD("alacritty -e sptui") }, 
+	{ MODKEY|ShiftMask,             XK_y,      spawn,          SHCMD("LD_PRELOAD=/home/aditya/suckless/spotifywm/spotifywm.so /home/aditya/suckless/scripts/spotadfree") }, 
 	{ 0,                            XF86XK_AudioLowerVolume, spawn, SHCMD("pamixer -d 5 ; pkill -RTMIN+10 dwmblocks")}, //XK COMMAND TO DECREASE VOLUME
 	{ 0,                            XF86XK_AudioMute, spawn, SHCMD("pulsemute")}, //XK COMMAND TO MUTE VOLUME
 	{ 0,                            XF86XK_AudioRaiseVolume, spawn, SHCMD("pamixer -i 5 ; pkill -RTMIN+10 dwmblocks")},	//XK COMMAND TO INCREASE VOLUME
-	{ 0,                            XF86XK_AudioPrev, spawn, SHCMD("playerctlPrev")},	//XK COMMAND TO previous song 
-	{ 0,                            XF86XK_AudioNext, spawn, SHCMD("playerctlNext")},	//XK COMMAND TO next song
-	{ 0,                            XF86XK_AudioPlay, spawn, SHCMD("playerctlToggle")},	//XK COMMAND TO next song
+	{ 0,                            XF86XK_AudioPrev, spawn, SHCMD("mpc prev")},	//XK COMMAND TO previous song 
+	{ 0,                            XF86XK_AudioNext, spawn, SHCMD("mpc next")},	//XK COMMAND TO next song
+	{ 0,                            XF86XK_AudioPlay, spawn, SHCMD("mpc toggle")},	//XK COMMAND TO next song
 	{ 0,                            XF86XK_AudioStop, spawn, SHCMD("mpc stop")},	//XK COMMAND TO next song
 	{ MODKEY,                       XK_F11, spawn, SHCMD("pamixer -d 5 ; pkill -RTMIN+10 dwmblocks")}, //ALTERNATE CONTROLS
 	{ MODKEY,                       XK_F12, spawn, SHCMD("pamixer -i 5 ; pkill -RTMIN+10 dwmblocks")}, //ALTERNATE CONTROLS
