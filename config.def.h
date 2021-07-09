@@ -93,8 +93,10 @@ static const char *fileManager[] = { "/usr/bin/pcmanfm", NULL };
 /* static const char *vscodium[] = { "/usr/bin/vscodium", NULL }; */
 static const char scratchpadname[] = "scratchpad";
 static const char ncmpcppname[] = "ncmpcpp";
+static const char sptname[] = "spt";
 static const char *scratchpadcmd[] = { "alacritty", "-t", scratchpadname, NULL };
 static const char *ncmpcppcmd[] = {"alacritty", "-t", ncmpcppname, "-e", ncmpcppname, NULL};
+static const char *sptuicmd[] = {"alacritty", "-t", sptname, "-e", "sptui", NULL};
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
@@ -105,12 +107,12 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_f,      spawn,          SHCMD("openFigma") },
 	{ MODKEY,                       XK_n,      spawn,		   {.v = fileManager } },
 	{ MODKEY,                       XK_space,  togglescratch,  {.v = scratchpadcmd } },
-	{ MODKEY,                       XK_y,  togglencmpcpp,  {.v = ncmpcppcmd } },
+	{ MODKEY,                       XK_y,      togglencmpcpp,  {.v = ncmpcppcmd } },
+	{ MODKEY|ShiftMask,             XK_y,      togglesptui,    {.v = sptuicmd } }, 
 	{ Mod1Mask,                     XK_F4,     spawn,          SHCMD("sd") }, //add to path
 	{ 0,                            XK_Print,  spawn,          SHCMD("screenshot") }, 
 	{ 0,                            XK_F8,     spawn,          SHCMD("feh --bg-scale --randomize /D/Downloads/*.jpg") }, 
 	{ ControlMask,                  XK_Print,  spawn,          SHCMD("directoryName") }, 
-	{ MODKEY|ShiftMask,             XK_y,      spawn,          SHCMD("alacritty -e sptui") }, 
 	{ 0,                            XF86XK_AudioLowerVolume, spawn, SHCMD("pamixer -d 5 ; pkill -RTMIN+10 dwmblocks")}, //XK COMMAND TO DECREASE VOLUME
 	{ 0,                            XF86XK_AudioMute, spawn, SHCMD("pulsemute")}, //XK COMMAND TO MUTE VOLUME
 	{ 0,                            XF86XK_AudioRaiseVolume, spawn, SHCMD("pamixer -i 5 ; pkill -RTMIN+10 dwmblocks")},	//XK COMMAND TO INCREASE VOLUME

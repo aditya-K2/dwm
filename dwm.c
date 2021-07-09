@@ -258,6 +258,7 @@ static void togglebar(const Arg *arg);
 static void togglefloating(const Arg *arg);
 static void togglescratch(const Arg *arg);
 static void togglencmpcpp(const Arg *arg);
+static void togglesptui(const Arg *arg);
 static void togglefullscr(const Arg *arg);
 static void toggletag(const Arg *arg);
 static void toggleview(const Arg *arg);
@@ -331,6 +332,7 @@ static Window root, wmcheckwin;
 
 static unsigned int scratchtag = 1 << LENGTH(tags);
 static unsigned int ncmpcpptag = 2 << LENGTH(tags);
+static unsigned int spttag = 4 << LENGTH(tags);
 
 /* compile-time check if all tags fit into an unsigned int bit array. */
 struct NumTags { char limitexceeded[LENGTH(tags) > 31 ? -1 : 1]; };
@@ -1332,6 +1334,13 @@ manage(Window w, XWindowAttributes *wa)
 		c->x = c->mon->wx + (c->mon->ww / 2 - WIDTH(c) / 2);
 		c->y = c->mon->wy + (c->mon->wh / 2 - HEIGHT(c) / 2);
 	}
+	selmon->tagset[selmon->seltags] &= ~spttag;
+	if (!strcmp(c->name, sptname)) {
+		c->mon->tagset[c->mon->seltags] |= c->tags = spttag;
+		c->isfloating = True;
+		c->x = c->mon->wx + (c->mon->ww / 2 - WIDTH(c) / 2);
+		c->y = c->mon->wy + (c->mon->wh / 2 - HEIGHT(c) / 2);
+	}
 
 	wc.border_width = c->bw;
 	XConfigureWindow(dpy, w, CWBorderWidth, &wc);
@@ -2074,6 +2083,7 @@ spawn(const Arg *arg)
 		dmenumon[0] = '0' + selmon->num;
 	selmon->tagset[selmon->seltags] &= ~scratchtag ;
 	selmon->tagset[selmon->seltags] &= ~ncmpcpptag ;
+	selmon->tagset[selmon->seltags] &= ~spttag ;
 	if (fork() == 0) {
 		if (dpy)
 			close(ConnectionNumber(dpy));
@@ -2194,6 +2204,7 @@ togglescratch(const Arg *arg)
 		spawn(arg);
 }
 
+
 void
 togglencmpcpp(const Arg *arg)
 {
@@ -2203,6 +2214,28 @@ togglencmpcpp(const Arg *arg)
 	for (c = selmon->clients; c && !(ncmpcppfound = c->tags & ncmpcpptag); c = c->next);
 	if (ncmpcppfound) {
 		unsigned int newtagset = selmon->tagset[selmon->seltags] ^ ncmpcpptag;
+		if (newtagset) {
+			selmon->tagset[selmon->seltags] = newtagset;
+			focus(NULL);
+			arrange(selmon);
+		}
+		if (ISVISIBLE(c)) {
+			focus(c);
+			restack(selmon);
+		}
+	} else
+		spawn(arg);
+}
+
+void
+togglesptui(const Arg *arg)
+{
+	Client *c;
+	unsigned int found = 0;
+
+	for (c = selmon->clients; c && !(found = c->tags & spttag); c = c->next);
+	if (found) {
+		unsigned int newtagset = selmon->tagset[selmon->seltags] ^ spttag;
 		if (newtagset) {
 			selmon->tagset[selmon->seltags] = newtagset;
 			focus(NULL);
